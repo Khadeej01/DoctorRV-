@@ -4,13 +4,19 @@ package com.Model;
 public class Doctor {
     private int docId;
     private String docUsername;
-    private int password;
+    private String password;
 
-    public Doctor(int docId, String docUsername, int password) {
+    public Doctor(int docId, String docUsername, String password) {
         this.docId = docId;
         this.docUsername = docUsername;
         this.password = password;
     }
+    public Doctor( String docUsername, String password) {
+
+        this.docUsername = docUsername;
+        this.password = password;
+    }
+
 
     public int getDocId() {
         return docId;
@@ -28,11 +34,11 @@ public class Doctor {
         this.docUsername = docUsername;
     }
 
-    public int getPassword() {
+    public String getPassword() {
         return password;
     }
 
-    public void setPassword(int password) {
+    public void setPassword(String password) {
         this.password = password;
     }
 

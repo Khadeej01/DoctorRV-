@@ -1,3 +1,7 @@
+<%@ page import="java.util.List" %>
+<%@ page import="com.Model.Doctor" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +22,20 @@
 
 
 
+<div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
+    <div class="bg-white p-8 rounded-lg shadow-lg w-80">
+        <h3 class="text-xl font-bold text-blue-600 text-center mb-4"> Doctor Login</h3>
+        <form action="LoginServlet" method="POST" class="space-y-4">
 
+            <div>
+                <label for="username" class="block font-semibold">Username:</label>
+                <input type="text" name="username" id="username" required class="w-full p-2 border rounded mt-1">
+            </div>
+
+            <div>
+                <label for="password" class="block font-semibold">Password:</label>
+                <input type="password" name="password" id="password" required class="w-full p-2 border rounded mt-1">
+            </div>
 
 
 
@@ -47,10 +64,22 @@
                 <input type="tel" name="telephone" id="telephone" required class="w-full p-2 border rounded mt-1">
             </div>
 
-            <label for="doctor" class="block font-semibold">Choose a  Doctor:</label>
-            <div name="doctor" id="doctor" class="w-full p-2 border rounded mt-1">
-                <div value="doctor1">Dr. Ali</div>
-            </div>
+            <label for="doctor1" class="block font-semibold mt-3">Choose a Doctor:</label>
+            <select name="doctor" id="doctor1" class="w-full p-2 border rounded mt-1">
+                <%
+                    List<Doctor> doctors = (List<Doctor>) request.getAttribute("listDoctor");
+
+                    for (Doctor doctor : doctors) {
+                %>
+                <option value="<%= doctor.getDocUsername() %>">
+                    <%= doctor.getDocUsername() %>
+                </option>
+                <% } %>
+            </select>
+
+            <div value=""></div>
+
+
 
 
             <label for="appointmentDate" class="block font-semibold mt-3">Choose Date:</label>
@@ -67,6 +96,25 @@
     </div>
 </div>
 
+    <script>
+
+        const loginBtn = document.getElementById("loginBtn");
+        const loginModal = document.getElementById("loginModal");
+        const closeModal = document.getElementById("closeModal");
+        loginBtn.addEventListener("click", function() {
+        loginModal.classList.remove("hidden");
+    });
+        closeModal.addEventListener("click", function() {
+        loginModal.classList.add("hidden");
+    });
+        window.addEventListener("click", function(event) {
+        if (event.target === loginModal) {
+        loginModal.classList.add("hidden");
+    }
+    });
+
+
+</script>
 
 </body>
 </html>

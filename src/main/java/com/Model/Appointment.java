@@ -1,5 +1,7 @@
 package com.Model;
 
+import java.sql.Date;
+
 public class Appointment {
     private int id;
     private int patientId;
@@ -14,6 +16,16 @@ public class Appointment {
         this.date = date;
         this.motif = motif;
     }
+
+    public Appointment(int patientId, int doctorId, Date date, String motif) {
+
+        this.patientId = patientId;
+        this.doctorId = doctorId;
+        this.date = date;
+        this.motif = motif;
+    }
+
+
 
     public int getId() {
         return id;

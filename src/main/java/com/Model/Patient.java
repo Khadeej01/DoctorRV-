@@ -14,6 +14,13 @@ public class Patient {
             this.telephone = telephone;
             this.motif = motif;
         }
+    public Patient( String username, String email, int telephone, String motif) {
+
+        this.username = username;
+        this.email = email;
+        this.telephone = telephone;
+        this.motif = motif;
+    }
 
         public int getId() {
             return id;
