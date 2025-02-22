@@ -75,9 +75,25 @@ public class AppointmentServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String action = request.getServletPath();
+
         try {
-            addAppointment(request, response);
-        } catch (SQLException e) {
+            switch (action) {
+
+                case "/TakeAppointmentServlet":
+                    addAppointment(request, response);
+                    break;
+                default:
+
+                    break;
+            }
+        }catch(Exception e) {
             e.printStackTrace();
         }
     }
@@ -91,10 +107,10 @@ public class AppointmentServlet extends HttpServlet {
         Date appointmentDate = Date.valueOf(date);
         String motif = request.getParameter("motif");
 
-        Appointment newAppointment = new Appointment(0, patientId, doctorId, appointmentDate, motif);
-        appointmentDAO.addAppointment(newAppointment);
+
 
         response.sendRedirect("appointments");
     }
+
 }
 

@@ -31,7 +31,6 @@ public class DBConnection {
             stmt.setString(1, patient.getUsername());
             stmt.setString(2, patient.getEmail());
             stmt.setInt(3, patient.getTelephone());
-            stmt.setString(4, patient.getMotif());
 
             stmt.executeUpdate();
         } catch (SQLException e) {

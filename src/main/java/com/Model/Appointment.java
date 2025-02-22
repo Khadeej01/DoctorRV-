@@ -4,28 +4,25 @@ import java.sql.Date;
 
 public class Appointment {
     private int id;
-    private int patientId;
+    Patient patient;
     private int doctorId;
     private Date date;
     private String motif;
 
-    public Appointment(int id, int patientId, int doctorId, Date date, String motif) {
+    public Appointment(int id, Patient patient, int doctorId, Date date, String motif) {
         this.id = id;
-        this.patientId = patientId;
+        this.patient = patient;
         this.doctorId = doctorId;
         this.date = date;
         this.motif = motif;
     }
 
-    public Appointment(int patientId, int doctorId, Date date, String motif) {
-
-        this.patientId = patientId;
+    public Appointment(Patient patient, int doctorId, Date date, String motif) {
+        this.patient = patient;
         this.doctorId = doctorId;
         this.date = date;
         this.motif = motif;
     }
-
-
 
     public int getId() {
         return id;
@@ -35,12 +32,12 @@ public class Appointment {
         this.id = id;
     }
 
-    public int getPatientId() {
-        return patientId;
+    public Patient getPatient() {
+        return patient;
     }
 
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
+    public void setPatient(Patient patient) {
+        this.patient = patient;
     }
 
     public int getDoctorId() {
@@ -71,7 +68,7 @@ public class Appointment {
     public String toString() {
         return "Appointment{" +
                 "id=" + id +
-                ", patientId=" + patientId +
+                ", patient=" + patient +
                 ", doctorId=" + doctorId +
                 ", date=" + date +
                 ", motif='" + motif + '\'' +

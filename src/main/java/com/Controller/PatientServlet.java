@@ -71,8 +71,6 @@ public class PatientServlet extends HttpServlet {
         int telephone = Integer.parseInt(request.getParameter("telephone"));
         String motif = request.getParameter("motif");
 
-        Patient newPatient = new Patient(0, username, email, telephone, motif);
-        patientDAO.addPatient(newPatient);
-        response.sendRedirect("patient");
+
     }
 }

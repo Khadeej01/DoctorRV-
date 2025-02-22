@@ -39,8 +39,6 @@ public class AppointmentDAO {
                 int doctorId = rs.getInt("doctor_id");
                 Date date = rs.getDate("Date");
                 String motif = rs.getString("motif");
-
-                appointments.add(new Appointment(id, patientId, doctorId, date, motif));
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -51,7 +49,7 @@ public class AppointmentDAO {
     public void addAppointment(Appointment appointment) {
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_APPOINTMENT_SQL)) {
-            preparedStatement.setInt(1, appointment.getPatientId());
+
             preparedStatement.setInt(2, appointment.getDoctorId());
             preparedStatement.setDate(3, appointment.getDate());
             preparedStatement.setString(4, appointment.getMotif());
@@ -82,7 +80,7 @@ public class AppointmentDAO {
 
         try (Connection connection = getConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(INSERT_APPOINTMENT_SQL)) {
-            preparedStatement.setInt(1, appointment.getPatientId());
+
             preparedStatement.setInt(2, appointment.getDoctorId());
             preparedStatement.setDate(3, appointment.getDate());
             preparedStatement.setString(4, appointment.getMotif());

@@ -38,7 +38,7 @@ public class PatientDAO {
                 String email = rs.getString("email");
                 int telephone = rs.getInt("telephone");
                 String motif = rs.getString("motif");
-                patients.add(new Patient(id, username, email, telephone, motif));
+
             }
         } catch (SQLException e) {
             printSQLException(e);
@@ -52,7 +52,7 @@ public class PatientDAO {
             preparedStatement.setString(1, patient.getUsername());
             preparedStatement.setString(2, patient.getEmail());
             preparedStatement.setInt(3, patient.getTelephone());
-            preparedStatement.setString(4, patient.getMotif());
+
 
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
@@ -75,5 +75,21 @@ public class PatientDAO {
             }
         }
     }
+    public int getPatientIdByUsername(String username) {
+        int id = -1;
+        String query = "SELECT id FROM Patient WHERE usename = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
+    }
+
 }
 

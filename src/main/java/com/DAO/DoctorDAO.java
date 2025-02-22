@@ -1,7 +1,9 @@
 package com.DAO;
 
 
+    import com.Model.Appointment;
     import com.Model.Doctor;
+    import com.Model.Patient;
 
     import java.sql.*;
     import java.util.ArrayList;
@@ -12,7 +14,8 @@ public class DoctorDAO {
     private String jdbcUsername = "root";
     private String jdbcPassword = "admin";
     private static final String SELECT_ALL_Doctor = "SELECT * FROM Doctor";
-
+private static final String INSERT_PATIENT = "INSERT INTO Patient(usename, email, telephone) VALUES(?,?,?)";
+private static final String INSERT_APPOINTMENT = "INSERT INTO Appointment(patient_id,doctor_id,Date,motif) VALUES(?,?,?,?)";
     protected Connection getConnection() {
         Connection connection = null;
         try {
@@ -53,6 +56,33 @@ public class DoctorDAO {
             System.out.println(doctors);
             return doctors;
         }
+    public void addPatient(Patient patient) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_PATIENT)) {
+            preparedStatement.setString(1, patient.getUsername());
+            preparedStatement.setString(2, patient.getEmail());
+            preparedStatement.setInt(3, patient.getTelephone());
+
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+    }
+    public void addAppointment(Appointment appointment) {
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(INSERT_APPOINTMENT)) {
+            preparedStatement.setInt(1, appointment.getPatient().getId());
+            preparedStatement.setInt(2, appointment.getDoctorId());
+            preparedStatement.setDate(3, appointment.getDate());
+            preparedStatement.setString(4, appointment.getMotif());
+
+
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            printSQLException(e);
+        }
+    }
     private void printSQLException(SQLException ex) {
         for (Throwable e: ex) {
             if (e instanceof SQLException) {
@@ -68,6 +98,23 @@ public class DoctorDAO {
             }
         }
     }
+
+    public int getDoctorIdByUsername(String username) {
+        int id = -1;
+        String query = "SELECT docId FROM Doctor WHERE docUsername = ?";
+        try (Connection connection = getConnection();
+             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, username);
+            ResultSet rs = preparedStatement.executeQuery();
+            if (rs.next()) {
+                id = rs.getInt("docId");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return id;
     }
+
+}
 
 

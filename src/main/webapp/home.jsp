@@ -10,8 +10,8 @@
     <title>DoctorRV</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-cover bg-center h-screen flex items-center justify-center" style="background-image: url('./imgs/pexels-cottonbro-7578803.jpg');">
-<h1 class="absolute top-4 left-0 text-4xl font-bold  text-blue-600">
+<body class="bg-cover bg-center h-screen flex items-center justify-center" style="background-image: url('./imgs/Doc.jpg')">
+<h1 class="absolute top-8 left-4 text-4xl font-bold  text-blue-600">
     Welcome to DoctorRV
 </h1>
 
@@ -24,7 +24,7 @@
 
 <div id="loginModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
     <div class="bg-white p-8 rounded-lg shadow-lg w-80">
-        <h3 class="text-xl font-bold text-blue-600 text-center mb-4"> Doctor Login</h3>
+        <h3 class="text-xl   font-bold text-blue-600 text-center mb-4"> Doctor Login</h3>
         <form action="LoginServlet" method="POST" class="space-y-4">
 
             <div>
@@ -51,7 +51,7 @@
 
     <div class="bg-white bg-opacity-80 p-6 rounded-lg shadow-lg w-full md:w-1/3">
         <h3 class="text-xl font-bold text-blue-600 text-center">Book Your Appointment</h3>
-        <form action="TakeAppointmentServlet" method="POST" class="mt-4">
+        <form action="insertDoctor" method="POST" class="mt-4">
             <label for="username" class="block font-semibold">Username:</label>
             <input type="text" name="username" id="usernamee" required class="w-full p-2 border rounded mt-1">
 
@@ -61,17 +61,17 @@
             </div>
             <div>
                 <label for="telephone" class="block font-semibold mt-3">Telephone:</label>
-                <input type="tel" name="telephone" id="telephone" required class="w-full p-2 border rounded mt-1">
+                <input type="tel" name="telephone" id= "telephone" required class="w-full p-2 border rounded mt-1">
             </div>
 
             <label for="doctor1" class="block font-semibold mt-3">Choose a Doctor:</label>
-            <select name="doctor" id="doctor1" class="w-full p-2 border rounded mt-1">
+            <select  id="doctor1" name="doctorid"  class="w-full p-2 border rounded mt-1">
                 <%
                     List<Doctor> doctors = (List<Doctor>) request.getAttribute("listDoctor");
 
                     for (Doctor doctor : doctors) {
                 %>
-                <option value="<%= doctor.getDocUsername() %>">
+                <option value="<%= doctor.getDocId() %>">
                     <%= doctor.getDocUsername() %>
                 </option>
                 <% } %>
